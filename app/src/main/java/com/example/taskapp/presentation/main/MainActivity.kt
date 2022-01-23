@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity((R.layout.activity_main)) {
     private fun setupSwipeListener(rv: RecyclerView) {
         val callback = object : ItemTouchHelper.SimpleCallback(
             0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+                    or ItemTouchHelper.UP or ItemTouchHelper.DOWN
         ) {
             override fun onMove(
                 recyclerView: RecyclerView,
