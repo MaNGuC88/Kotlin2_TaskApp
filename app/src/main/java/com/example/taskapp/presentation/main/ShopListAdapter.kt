@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskapp.R
 import com.example.taskapp.domain.ShopItem
@@ -11,13 +13,13 @@ import com.example.taskapp.domain.ShopItem
 class ShopListAdapter(var longClick: (ShopItem) -> Unit) :
     RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>() {
 
-    var list = listOf<ShopItem>()
-    set(value){
-    field = value
-    }
+    var list = mutableListOf<ShopItem>()
+        set(value) {
+            field = value
+        }
 
     override fun getItemViewType(position: Int): Int {
-        return if (list[position].enabled){
+        return if (list[position].enabled) {
             ENABLED
         } else {
             DISABLED
@@ -48,6 +50,20 @@ class ShopListAdapter(var longClick: (ShopItem) -> Unit) :
         holder.tvCount.text = shopItem.count.toString()
     }
 
+    fun swap(items: LiveData<List<ShopItem>>) {
+        val changedList = mutableListOf<ShopItem>()
+        items.value?.forEach {
+            changedList.add(it.copy())
+        }
+
+        val diffCallback = DiffCallback(this.list, changedList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        this.list.clear()
+        this.list.addAll(changedList)
+        diffResult.dispatchUpdatesTo(this)
+    }
+
     override fun getItemCount(): Int {
         return list.size
     }
@@ -57,7 +73,7 @@ class ShopListAdapter(var longClick: (ShopItem) -> Unit) :
         val tvName: TextView = itemView.findViewById(R.id.tv_name)
         val tvCount: TextView = itemView.findViewById(R.id.tv_count)
 
-        init{
+        init {
             itemView.setOnLongClickListener {
                 longClick.invoke(list[absoluteAdapterPosition])
                 return@setOnLongClickListener true

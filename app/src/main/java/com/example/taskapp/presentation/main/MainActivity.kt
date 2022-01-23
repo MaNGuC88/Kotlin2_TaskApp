@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity((R.layout.activity_main)) {
 
     private fun initObservers() {
         viewModel.shopList.observe(this, { listData ->
-            adapterShop.list = listData
+            adapterShop.list = listData as MutableList<ShopItem>
         })
     }
 
@@ -55,18 +55,16 @@ class MainActivity : AppCompatActivity((R.layout.activity_main)) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val item = adapterShop.list[viewHolder.absoluteAdapterPosition]
                 viewModel.deleteShopItem(item)
-                adapterShop.notifyItemRemoved(viewHolder.absoluteAdapterPosition)
+                adapterShop.swap(viewModel.shopList)
             }
-
         }
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(rv)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun longClickListener(shopItem: ShopItem) {
         viewModel.changeEnableState(shopItem)
-        adapterShop.notifyDataSetChanged()
+        adapterShop.swap(viewModel.shopList)
     }
 
     private fun initListeners() {
