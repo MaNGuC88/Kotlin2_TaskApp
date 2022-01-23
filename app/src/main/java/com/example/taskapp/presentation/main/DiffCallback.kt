@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.taskapp.domain.ShopItem
 
 class DiffCallback(
-    private val oldList: List<ShopItem>,
-    private val newList: List<ShopItem>
+    private val oldList: MutableList<ShopItem>,
+    private val newList: MutableList<ShopItem>,
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
