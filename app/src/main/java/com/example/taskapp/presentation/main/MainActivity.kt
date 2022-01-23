@@ -1,5 +1,6 @@
 package com.example.taskapp.presentation.main
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity((R.layout.activity_main)) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val item = adapterShop.list[viewHolder.absoluteAdapterPosition]
                 viewModel.deleteShopItem(item)
+                adapterShop.notifyItemRemoved(viewHolder.absoluteAdapterPosition)
                 adapterShop.swap(viewModel.shopList)
             }
         }
@@ -61,8 +63,10 @@ class MainActivity : AppCompatActivity((R.layout.activity_main)) {
         itemTouchHelper.attachToRecyclerView(rv)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun longClickListener(shopItem: ShopItem) {
         viewModel.changeEnableState(shopItem)
+        adapterShop.notifyDataSetChanged()
         adapterShop.swap(viewModel.shopList)
     }
 

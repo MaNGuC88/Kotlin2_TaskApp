@@ -18,6 +18,12 @@ class ShopListAdapter(var longClick: (ShopItem) -> Unit) :
             field = value
         }
 
+    private var newList = mutableListOf<ShopItem>()
+
+    init {
+        newList.addAll(list)
+    }
+
     override fun getItemViewType(position: Int): Int {
         return if (list[position].enabled) {
             ENABLED
@@ -45,18 +51,20 @@ class ShopListAdapter(var longClick: (ShopItem) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-        holder.bind(shopItem = list[position])
+        val shopItem = list[position]
+        holder.tvName.text = shopItem.name
+        holder.tvCount.text = shopItem.count.toString()
     }
 
     fun swap(listData: LiveData<List<ShopItem>>) {
-        val changedList = mutableListOf<ShopItem>()
+        val newList = mutableListOf<ShopItem>()
         listData.value?.forEach {
-            changedList.add(it.copy())
+            newList.add(it.copy())
         }
-        list.clear()
-        list.addAll(changedList)
-        val diffCallback = DiffCallback(list, changedList)
+        val diffCallback = DiffCallback(this.list, newList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
+        this.list.clear()
+        this.list.addAll(newList)
         diffResult.dispatchUpdatesTo(this)
     }
 
@@ -65,13 +73,9 @@ class ShopListAdapter(var longClick: (ShopItem) -> Unit) :
     }
 
     inner class ShopItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvName: TextView = itemView.findViewById(R.id.tv_name)
-        private val tvCount: TextView = itemView.findViewById(R.id.tv_count)
 
-        fun bind(shopItem: ShopItem) {
-            tvName.text = shopItem.name
-            tvCount.text = shopItem.count.toString()
-        }
+        val tvName: TextView = itemView.findViewById(R.id.tv_name)
+        val tvCount: TextView = itemView.findViewById(R.id.tv_count)
 
         init {
             itemView.setOnLongClickListener {
