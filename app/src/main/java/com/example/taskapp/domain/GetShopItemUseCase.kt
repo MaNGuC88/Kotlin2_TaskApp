@@ -2,6 +2,6 @@ package com.example.taskapp.domain
 
 class GetShopItemUseCase(private val shopListRepository: ShopListRepository) {
 
-    fun getShopItem() = shopListRepository.getShopItem()
+    fun getShopItem(shopItemId: Int) = shopListRepository.getShopItem(shopItemId)
 
 }

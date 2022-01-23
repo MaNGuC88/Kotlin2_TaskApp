@@ -2,6 +2,6 @@ package com.example.taskapp.domain
 
 class EditShopItemUseCase(private val shopListRepository: ShopListRepository) {
 
-    fun editShopItem() = shopListRepository.editShopItem()
+    fun editShopItem(shopItem: ShopItem) = shopListRepository.editShopItem(shopItem)
 
 }

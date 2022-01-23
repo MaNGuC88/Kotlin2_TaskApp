@@ -4,6 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/TaskApp/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/TaskApp/app/src/main/res/layout/item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/TaskApp/app/src/main/res/layout/item_disabled.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/TaskApp/app/src/main/res/layout/item_enabled.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/TaskApp/app/src/main/res/layout/item_shop_disabled.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/TaskApp/app/src/main/res/layout/item_shop_enabled.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

@@ -1,15 +1,17 @@
 package com.example.taskapp.domain
 
+import androidx.lifecycle.LiveData
+
 interface ShopListRepository {
 
     fun addShopItem(shopItem: ShopItem)
 
     fun deleteShopItem(shopItem: ShopItem)
 
-    fun getShopList(): List<ShopItem>
+    fun getShopList(): LiveData<List<ShopItem>>
 
-    fun editShopItem(): Boolean
+    fun editShopItem(shopItem: ShopItem)
 
-    fun getShopItem(): Int
+    fun getShopItem(shopItemId: Int): ShopItem
 
 }
