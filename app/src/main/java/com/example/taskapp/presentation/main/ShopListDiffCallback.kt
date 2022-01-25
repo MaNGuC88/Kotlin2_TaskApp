@@ -1,11 +1,11 @@
 package com.example.taskapp.presentation.main
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.taskapp.domain.ShopItem
+import com.example.taskapp.domain.models.ShopItem
 
-class DiffCallback(
+class ShopListDiffCallback(
     private val oldList: List<ShopItem>,
-    private val newList: List<ShopItem>,
+    private val newList: List<ShopItem>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize() = oldList.size
@@ -17,6 +17,6 @@ class DiffCallback(
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].name == newList[newItemPosition].name
+        return oldList[oldItemPosition] == newList[newItemPosition]
     }
 }

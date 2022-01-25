@@ -3,12 +3,16 @@
     package="com.example.taskapp">
 
     <application
+        android:name=".presentation.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskApp">
+        <activity
+            android:name=".presentation.insert.InsertActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true">

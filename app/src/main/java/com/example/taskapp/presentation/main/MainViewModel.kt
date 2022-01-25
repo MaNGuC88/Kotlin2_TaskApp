@@ -2,7 +2,10 @@ package com.example.taskapp.presentation.main
 
 import androidx.lifecycle.ViewModel
 import com.example.taskapp.data.ShopListRepositoryImpl
-import com.example.taskapp.domain.*
+import com.example.taskapp.domain.models.ShopItem
+import com.example.taskapp.domain.use_cases.DeleteShopItemUseCase
+import com.example.taskapp.domain.use_cases.EditShopItemUseCase
+import com.example.taskapp.domain.use_cases.GetShopListUseCase
 
 class MainViewModel : ViewModel() {
 

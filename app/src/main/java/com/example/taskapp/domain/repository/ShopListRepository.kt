@@ -1,6 +1,7 @@
-package com.example.taskapp.domain
+package com.example.taskapp.domain.repository
 
 import androidx.lifecycle.LiveData
+import com.example.taskapp.domain.models.ShopItem
 
 interface ShopListRepository {
 
