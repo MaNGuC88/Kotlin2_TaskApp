@@ -4,6 +4,6 @@ import com.example.taskapp.domain.repository.ShopListRepository
 
 class GetShopItemUseCase(private val shopListRepository: ShopListRepository) {
 
-    fun getShopItem(shopItemId: Int) = shopListRepository.getShopItem(shopItemId)
+    suspend fun getShopItem(shopItemId: Int) = shopListRepository.getShopItem(shopItemId)
 
 }

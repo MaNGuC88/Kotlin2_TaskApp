@@ -3,4 +3,6 @@
     <string name="get_list">Get List</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="search_title">search</string>
+    <string name="search_hint">search for shop item</string>
 </resources>

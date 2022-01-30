@@ -10,15 +10,15 @@ interface ShopDao {
     fun getShopList(): LiveData<List<ShopItemDBModel>>
 
     @Query("SELECT * FROM shop_items WHERE id=:shopItemId LIMIT 1")
-    fun getShopItem(shopItemId: Int): ShopItemDBModel
+    suspend fun getShopItem(shopItemId: Int): ShopItemDBModel
 
     @Insert
-    fun insertShopItem(shopItemDBModel: ShopItemDBModel)
+    suspend fun insertShopItem(shopItemDBModel: ShopItemDBModel)
 
     @Delete
-    fun deleteShopItem(shopItemDBModel: ShopItemDBModel)
+    suspend fun deleteShopItem(shopItemDBModel: ShopItemDBModel)
 
     @Update
-    fun updateShopItem(shopItemDBModel: ShopItemDBModel)
+    suspend fun updateShopItem(shopItemDBModel: ShopItemDBModel)
 
 }

@@ -1,9 +1,13 @@
 package com.example.taskapp.presentation.main
 
-import android.annotation.SuppressLint
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -28,12 +32,42 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         setUpRecycler()
 
         goToInsertActivity()
+
+        handleSearch(intent)
     }
 
     private fun goToInsertActivity() {
         binding.fab.setOnClickListener {
             Intent(this, InsertActivity::class.java).apply {
                 startActivity(this)
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.search).actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        }
+
+        return true
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleSearch(intent)
+    }
+
+    private fun handleSearch(intent: Intent) {
+        if (Intent.ACTION_SEARCH == intent.action) {
+            val query = intent.getStringExtra(SearchManager.QUERY)
+            if (query != null) {
+                viewModel.getShopItem(query.toInt())
+                viewModel.shopItem.observe(this, {
+                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+                })
             }
         }
     }
@@ -76,7 +110,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         itemTouchHelper.attachToRecyclerView(rv)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun longClickListener(shopItem: ShopItem) {
         viewModel.changeEnableState(shopItem)
     }

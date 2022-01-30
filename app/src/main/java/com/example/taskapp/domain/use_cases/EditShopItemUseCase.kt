@@ -5,6 +5,6 @@ import com.example.taskapp.domain.models.ShopItem
 
 class EditShopItemUseCase(private val shopListRepository: ShopListRepository) {
 
-    fun editShopItem(shopItem: ShopItem) = shopListRepository.editShopItem(shopItem)
+    suspend fun editShopItem(shopItem: ShopItem) = shopListRepository.editShopItem(shopItem)
 
 }

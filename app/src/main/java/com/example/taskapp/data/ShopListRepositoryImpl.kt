@@ -11,7 +11,7 @@ object ShopListRepositoryImpl: ShopListRepository {
 //    private val shopListLD = MutableLiveData<List<ShopItem>>()
 //    private val shopList = sortedSetOf<ShopItem>({ o1, o2 -> o1.id.compareTo(o2.id)})
 
-    private var autoIncrementId = 0
+//    private var autoIncrementId = 0
     private val mapper = ShopListMapper()
 
 //    init {
@@ -21,7 +21,7 @@ object ShopListRepositoryImpl: ShopListRepository {
 //        }
 //    }
 
-    override fun addShopItem(shopItem: ShopItem) {
+    override suspend fun addShopItem(shopItem: ShopItem) {
         val dbModel = mapper.mapEntityToDbModel(shopItem)
         App.appDataBase.shopListDao().insertShopItem(dbModel)
 //        if (shopItem.id == ShopItem.UNDEFINED_ID) {
@@ -41,14 +41,14 @@ object ShopListRepositoryImpl: ShopListRepository {
 //        shopListLD.value = shopList.toList()
 //    }
 
-    override fun deleteShopItem(shopItem: ShopItem) {
+    override suspend fun deleteShopItem(shopItem: ShopItem) {
         val dbModel = mapper.mapEntityToDbModel(shopItem)
         App.appDataBase.shopListDao().deleteShopItem(dbModel)
 //        shopList.remove(shopItem)
 //        updateList()
     }
 
-    override fun editShopItem(shopItem: ShopItem) {
+    override suspend fun editShopItem(shopItem: ShopItem) {
         val dbModel = mapper.mapEntityToDbModel(shopItem)
         App.appDataBase.shopListDao().updateShopItem(dbModel)
 //        val oldElement = getShopItem(shopItem.id)
@@ -56,7 +56,7 @@ object ShopListRepositoryImpl: ShopListRepository {
 //        addShopItem(shopItem)
     }
 
-    override fun getShopItem(shopItemId: Int): ShopItem {
+    override suspend fun getShopItem(shopItemId: Int): ShopItem {
 //        return shopList.find { shopItem ->
 //            shopItem.id == shopItemId
 //        } ?: throw RuntimeException("Element with id $shopItemId not found")

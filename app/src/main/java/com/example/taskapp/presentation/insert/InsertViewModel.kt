@@ -1,9 +1,11 @@
 package com.example.taskapp.presentation.insert
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.taskapp.data.ShopListRepositoryImpl
 import com.example.taskapp.domain.models.ShopItem
 import com.example.taskapp.domain.use_cases.AddShopItemUseCase
+import kotlinx.coroutines.launch
 
 class InsertViewModel : ViewModel() {
 
@@ -11,7 +13,9 @@ class InsertViewModel : ViewModel() {
     private val addShopItemUseCase = AddShopItemUseCase(repository)
 
     fun addShopItem(shopItem: ShopItem) {
-        addShopItemUseCase.addShopItem(shopItem)
+        viewModelScope.launch {
+            addShopItemUseCase.addShopItem(shopItem)
+        }
     }
 
 }
