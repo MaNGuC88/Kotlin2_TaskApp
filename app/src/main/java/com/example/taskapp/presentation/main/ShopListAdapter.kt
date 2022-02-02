@@ -4,26 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-//import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskapp.R
 import com.example.taskapp.domain.models.ShopItem
-import java.lang.RuntimeException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-//class ShopListAdapter(var longClick: (ShopItem) -> Unit) :
-//    RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>() {
-
-class ShopListAdapter(var longClick: (ShopItem) -> Unit) :
+@Singleton
+class ShopListAdapter @Inject constructor() :
     ListAdapter<ShopItem, ShopListAdapter.ShopItemViewHolder>(ShopItemCallback()) {
 
-//    var list = mutableListOf<ShopItem>()
-//        set(value) {
-//            val callback = ShopListDiffCallback(list, value)
-//            val diffResult = DiffUtil.calculateDiff(callback)
-//            diffResult.dispatchUpdatesTo(this)
-//            field = value
-//        }
+   var longClick: ((ShopItem) -> Unit)? = null
 
     override fun getItemViewType(position: Int): Int {
         val shopItem = getItem(position)
@@ -42,38 +34,18 @@ class ShopListAdapter(var longClick: (ShopItem) -> Unit) :
         }
         return ShopItemViewHolder(LayoutInflater.from(parent.context).inflate
             (layout, parent, false))
-//        return when (viewType) {
-//            ENABLED -> {
-//                ShopItemViewHolder(LayoutInflater.from(parent.context).inflate(
-//                    R.layout.item_enabled, parent, false))
-//            }
-//            DISABLED -> {
-//                ShopItemViewHolder(LayoutInflater.from(parent.context).inflate(
-//                    R.layout.item_disabled, parent, false))
-//            }
-//            else -> {
-//                ShopItemViewHolder(
-//                    LayoutInflater.from(parent.context).inflate(
-//                        R.layout.item_enabled, parent, false))
-//            }
-//        }
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-//        val shopItem = list[position]
         val shopItem = getItem(position)
         holder.tvName.text = shopItem.name
         holder.tvCount.text = shopItem.count.toString()
 
         holder.itemView.setOnLongClickListener {
-            longClick.invoke(shopItem)
+            longClick?.invoke(shopItem)
             return@setOnLongClickListener true
         }
     }
-
-//    override fun getItemCount(): Int {
-//        return list.size
-//    }
 
     inner class ShopItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.tv_name)

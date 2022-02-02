@@ -1,6 +1,8 @@
 package com.example.taskapp.domain.models
 
-data class ShopItem(
+import javax.inject.Inject
+
+data class ShopItem @Inject constructor(
     var name: String,
     var count: Int,
     var enabled: Boolean,

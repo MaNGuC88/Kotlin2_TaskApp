@@ -7,7 +7,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.taskapp.R
 import com.example.taskapp.databinding.ActivityInsertBinding
 import com.example.taskapp.domain.models.ShopItem
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class InsertActivity : AppCompatActivity(R.layout.activity_insert) {
 
     private val binding: ActivityInsertBinding by viewBinding()

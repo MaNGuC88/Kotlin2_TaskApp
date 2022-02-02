@@ -9,11 +9,15 @@ import com.example.taskapp.domain.use_cases.DeleteShopItemUseCase
 import com.example.taskapp.domain.use_cases.EditShopItemUseCase
 import com.example.taskapp.domain.use_cases.GetShopItemUseCase
 import com.example.taskapp.domain.use_cases.GetShopListUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    repository: ShopListRepositoryImpl
+) : ViewModel() {
 
-    private val repository = ShopListRepositoryImpl
     private val getShopListUseCase = GetShopListUseCase(repository)
     private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
     private val editShopItemUseCase = EditShopItemUseCase(repository)
@@ -41,9 +45,5 @@ class MainViewModel : ViewModel() {
         }
     }
 
-//    fun getShopList() {
-//        val list = getShopListUseCase.getShopList()
-//        shopList.value = list
-//    }
 }
 

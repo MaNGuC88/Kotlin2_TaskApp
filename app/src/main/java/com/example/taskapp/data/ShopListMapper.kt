@@ -1,8 +1,9 @@
 package com.example.taskapp.data
 
 import com.example.taskapp.domain.models.ShopItem
+import javax.inject.Inject
 
-class ShopListMapper {
+class ShopListMapper @Inject constructor(){
 
     fun mapEntityToDbModel(shopItem: ShopItem?) = ShopItemDBModel(
         id = shopItem?.id!!,
